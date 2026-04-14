@@ -1,0 +1,142 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 登录页返回链接 hover */
+.login-back-btn:hover {
+  color: #6366f1 !important;
+}
+
+/* 右上角用户信息区域 */
+.header-user-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  user-select: none;
+}
+
+.header-user-btn:hover {
+  background: rgba(0, 0, 0, 0.04);
+  color: #6366f1 !important;
+}
+
+.header-user-btn:hover span,
+.header-user-btn:hover .anticon {
+  color: #6366f1 !important;
+}
+
+.header-collapse-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s;
+  user-select: none;
+  color: rgba(0, 0, 0, 0.88);
+}
+
+.header-collapse-btn:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Logo 去除页 Canvas 选区光标 */
+.canvas-select {
+  cursor: crosshair;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* 手机端样式 */
+@media (max-width: 767px) {
+  /* 全局基础字号缩小 */
+  body {
+    font-size: 13px;
+  }
+
+  /* 防止 iOS Safari 聚焦输入框时自动放大页面（font-size < 16px 会触发） */
+  input,
+  textarea,
+  select {
+    font-size: 16px !important;
+  }
+
+  /* Card 内边距 */
+  .ant-card-body {
+    padding: 12px;
+  }
+
+  .ant-card-head {
+    padding: 0 12px;
+    min-height: 40px;
+    font-size: 14px;
+  }
+
+  .ant-card-head-title {
+    font-size: 14px;
+  }
+
+  /* 表格整体 */
+  .ant-table {
+    font-size: 12px;
+  }
+
+  .ant-table-small .ant-table-cell {
+    padding: 5px 4px !important;
+    font-size: 12px;
+  }
+
+  .ant-table-small .ant-table-thead > tr > th {
+    font-size: 12px;
+  }
+
+  /* Tag */
+  .ant-tag {
+    font-size: 11px;
+    padding: 0 4px;
+    line-height: 18px;
+  }
+
+  /* 按钮 */
+  .ant-btn-sm,
+  .ant-btn-link.ant-btn-sm {
+    font-size: 12px;
+  }
+
+  /* 分页器 */
+  .ant-pagination {
+    font-size: 12px;
+  }
+
+  .ant-pagination .ant-pagination-item,
+  .ant-pagination .ant-pagination-prev,
+  .ant-pagination .ant-pagination-next {
+    min-width: 28px;
+    height: 28px;
+    line-height: 28px;
+    font-size: 12px;
+  }
+
+  /* Typography */
+  .ant-typography {
+    font-size: 13px;
+  }
+
+  h5.ant-typography {
+    font-size: 14px !important;
+  }
+}
