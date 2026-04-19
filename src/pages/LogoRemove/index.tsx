@@ -7,6 +7,7 @@ import ImageUploadZone from './components/ImageUploadZone';
 import SelectionCanvas from './components/SelectionCanvas';
 import ResultPreview from './components/ResultPreview';
 import { useLogoRemoveLogic } from './useLogoRemoveLogic';
+import SEO from '../../components/SEO';
 
 const LogoRemove: React.FC = () => {
   const {
@@ -31,6 +32,14 @@ const LogoRemove: React.FC = () => {
     initOpenCV();
   }, [initOpenCV]);
 
+  const seo = (
+    <SEO
+      title="AI 水印去除"
+      description="免费在线 AI 水印去除工具，上传图片、框选水印区域，一键智能消除，无需安装任何软件。"
+      canonical="/logo-remove"
+    />
+  );
+
   // OpenCV 状态 Tag
   const statusTag = (() => {
     if (openCVStatus === 'loading') {
@@ -54,6 +63,7 @@ const LogoRemove: React.FC = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {seo}
       {/* 引擎状态常驻提示 */}
       <Card size="small" style={{ borderRadius: 8 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>

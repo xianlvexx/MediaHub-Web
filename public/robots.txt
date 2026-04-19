@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+Allow: /history
+Allow: /logo-remove
+Disallow: /login
+Disallow: /admin
+Disallow: /settings
+Disallow: /monitor
+
+Sitemap: https://video.xlvexx.cn/sitemap.xml

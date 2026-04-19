@@ -1,0 +1,23 @@
+# 编译输出目录
+dist/
+node_modules/
+
+# IDE 文件
+.idea/
+
+# 操作系统生成的文件
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# 日志文件
+*.log
+logs/
+
+# 临时文件
+*.tmp
+*.temp
