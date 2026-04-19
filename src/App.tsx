@@ -22,7 +22,27 @@ const { useBreakpoint } = Grid;
 
 type PageKey = 'home' | 'history' | 'logoRemove' | 'settings' | 'monitor';
 
+const PAGE_URL_MAP: Record<PageKey, string> = {
+  home: '/',
+  history: '/history',
+  logoRemove: '/logo-remove',
+  settings: '/settings',
+  monitor: '/monitor',
+};
+
+const URL_PAGE_MAP: Record<string, PageKey> = {
+  '/': 'home',
+  '/history': 'history',
+  '/logo-remove': 'logoRemove',
+  '/settings': 'settings',
+  '/monitor': 'monitor',
+};
+
 const isLoginPath = () => ['/admin', '/login'].includes(window.location.pathname);
+
+function getPageFromPath(): PageKey {
+  return URL_PAGE_MAP[window.location.pathname] ?? 'home';
+}
 
 /** 根据用户名生成稳定的头像背景色 */
 function usernameToColor(name: string): string {
@@ -37,7 +57,7 @@ function usernameToColor(name: string): string {
 const App: React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [currentPage, setCurrentPage] = useState<PageKey>('home');
+  const [currentPage, setCurrentPage] = useState<PageKey>(getPageFromPath);
   const [user, setUser] = useState(authStore.getUser());
   const [showLogin, setShowLogin] = useState(isLoginPath);
   const screens = useBreakpoint();
@@ -46,8 +66,21 @@ const App: React.FC = () => {
   const isLoggedIn = !!user;
   const isAdmin = user?.role === 'ADMIN';
 
+  const navigateTo = (page: PageKey) => {
+    const url = PAGE_URL_MAP[page];
+    window.history.pushState(null, '', url);
+    setCurrentPage(page);
+  };
+
   useEffect(() => {
-    const onPopState = () => setShowLogin(isLoginPath());
+    const onPopState = () => {
+      if (isLoginPath()) {
+        setShowLogin(true);
+      } else {
+        setShowLogin(false);
+        setCurrentPage(getPageFromPath());
+      }
+    };
     window.addEventListener('popstate', onPopState);
     return () => window.removeEventListener('popstate', onPopState);
   }, []);
@@ -56,7 +89,7 @@ const App: React.FC = () => {
     const handler = () => {
       authStore.clear();
       setUser(null);
-      setCurrentPage('home');
+      navigateTo('home');
       message.warning('登录已过期，请重新登录');
     };
     window.addEventListener('auth:unauthorized', handler);
@@ -70,15 +103,19 @@ const App: React.FC = () => {
 
   const handleLoginSuccess = () => {
     setUser(authStore.getUser());
-    goHome();
-    if (authStore.isAdmin()) setCurrentPage('settings');
+    if (authStore.isAdmin()) {
+      navigateTo('settings');
+      setShowLogin(false);
+    } else {
+      goHome();
+    }
   };
 
   const handleLogout = async () => {
     try { await logout(); } catch { /* ignore */ }
     authStore.clear();
     setUser(null);
-    setCurrentPage('home');
+    navigateTo('home');
     message.success('已退出登录');
   };
 
@@ -167,7 +204,7 @@ const App: React.FC = () => {
           width={200} styles={{ body: { padding: 0 } }}>
           <div style={styles.drawerLogo}><Logo size={22} collapsed={false} /></div>
           <Menu mode="inline" selectedKeys={[currentPage]} items={menuItems}
-            onClick={({ key }) => { setCurrentPage(key as PageKey); setDrawerOpen(false); }}
+            onClick={({ key }) => { navigateTo(key as PageKey); setDrawerOpen(false); }}
             style={{ borderRight: 0 }} />
         </Drawer>
         <Content style={{ padding: 12, background: '#f0f2f5', flex: 1, overflow: 'auto' }}>
@@ -186,7 +223,7 @@ const App: React.FC = () => {
           <Logo size={26} collapsed={collapsed} />
         </div>
         <Menu mode="inline" selectedKeys={[currentPage]} items={menuItems}
-          onClick={({ key }) => setCurrentPage(key as PageKey)}
+          onClick={({ key }) => navigateTo(key as PageKey)}
           style={{ borderRight: 0 }} />
       </Sider>
 

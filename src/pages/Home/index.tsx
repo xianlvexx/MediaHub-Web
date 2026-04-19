@@ -6,6 +6,7 @@ import VideoCard from '../../components/VideoCard';
 import DownloadProgress from '../../components/DownloadProgress';
 import DownloadHistory from '../../components/DownloadHistory';
 import { useHomeLogic } from './useHomeLogic';
+import SEO from '../../components/SEO';
 
 const { Paragraph } = Typography;
 
@@ -30,6 +31,11 @@ const Home: React.FC = () => {
 
   return (
     <div>
+      <SEO
+        title="视频下载工具"
+        description="支持抖音、B站、YouTube 等主流平台的在线视频解析与下载工具，免费、快速、无需安装。"
+        canonical="/"
+      />
       {/* URL输入区域 */}
       <Card>
         <div style={{ textAlign: 'center', marginBottom: 16 }}>
