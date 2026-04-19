@@ -144,7 +144,7 @@ const App: React.FC = () => {
 
   const githubIcon = (
     <a
-      href="https://github.sheincorp.cn/xianlvexx/media-hub"
+      href="https://github.com/xianlvexx/MediaHub"
       target="_blank"
       rel="noopener noreferrer"
       className="header-user-btn"
