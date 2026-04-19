@@ -2,7 +2,7 @@
 
 The frontend of [MediaHub](https://github.com/xianlvexx/MediaHub) — a self-hosted video download and image processing service.
 
-[中文文档](README.zh-CN.md)
+[中文文档](README_zh.md)
 
 ## Features
 
